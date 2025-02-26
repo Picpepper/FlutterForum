@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Forum"),
+        title: Text("Forum app"),
         backgroundColor: Colors.green,
         actions: [
           if (!isAuthenticated) ...[
