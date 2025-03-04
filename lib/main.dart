@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       home: SplashScreen(), // ✅ L'appli démarre avec le SplashScreen
       routes: {
         '/home': (context) => HomeScreen(), // Accès libre au forum

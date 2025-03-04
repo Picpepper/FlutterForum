@@ -4,7 +4,7 @@ import '../models/message.dart';
 import '../utils/secure_storage.dart';
 
 class ApiService {
-  static const String baseUrl = "https://s3-4684.nuage-peda.fr/forumFinal/api/messages";
+  static const String baseUrl = "https://s3-4686.nuage-peda.fr/forum/api/messages";
   final SecureStorage secureStorage = SecureStorage();
 
   /// récupérer tous les messages
@@ -14,6 +14,14 @@ class ApiService {
         'Accept': 'application/ld+json',
         'Content-Type': 'application/json',
       };
+
+      final body = jsonEncode({
+        'id' : 'id',
+        'titre' : 'titre',
+        'datePoste' : 'datePoste',
+        'nom' : 'user:nom',
+        'prenom' : 'user:prenom'
+      });
 
       final response = await http.get(Uri.parse(baseUrl), headers: headers);
 
