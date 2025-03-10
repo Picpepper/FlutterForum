@@ -3,6 +3,8 @@ import 'login_screen.dart'; // ✅ Import de l'écran de connexion
 import 'register_screen.dart'; // ✅ Import de l'écran d'inscription
 
 class AuthentificationChoix extends StatelessWidget {
+  const AuthentificationChoix({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,12 +32,12 @@ class AuthentificationChoix extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => LoginScreen()),
                 );
               },
-              child: Text("Se Connecter"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 textStyle: TextStyle(fontSize: 18),
               ),
+              child: Text("Se Connecter"),
             ),
             SizedBox(height: 10),
             // ✅ Bouton pour aller à l'inscription
@@ -46,12 +48,12 @@ class AuthentificationChoix extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => RegisterScreen()),
                 );
               },
-              child: Text("S'inscrire"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 textStyle: TextStyle(fontSize: 18),
               ),
+              child: Text("S'inscrire"),
             ),
           ],
         ),

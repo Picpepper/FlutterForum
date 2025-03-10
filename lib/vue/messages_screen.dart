@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../services/api_service.dart';
-import '../models/message.dart';
+import '../modele/message.dart';
 import 'message_detail_screen.dart';
-import '../providers/auth_provider.dart';
 
 class MessageScreen extends StatefulWidget {
+  const MessageScreen({super.key});
+
   @override
   _MessageScreenState createState() => _MessageScreenState();
 }

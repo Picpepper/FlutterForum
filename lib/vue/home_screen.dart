@@ -6,6 +6,8 @@ import 'register_screen.dart';
 import 'messages_screen.dart'; // ✅ Import correct
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);

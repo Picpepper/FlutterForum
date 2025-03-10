@@ -4,6 +4,8 @@ import '../providers/auth_provider.dart';
 import '../vue/register_screen.dart'; // ✅ Import de RegisterScreen
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }

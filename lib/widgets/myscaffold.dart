@@ -7,7 +7,7 @@ class MyScaffold extends StatelessWidget {
   final Widget body;
   final String name;
 
-  const MyScaffold({required this.body, required this.name});
+  const MyScaffold({super.key, required this.body, required this.name});
 
   @override
   Widget build(BuildContext context) {
