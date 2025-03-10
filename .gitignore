@@ -45,10 +45,3 @@ app.*.map.json
 /android/app/release
 
 .idx
-vue/authentification_choix.dart
-vue/home_screen.dart
-vue/login_screen.dart
-vue/message_detail_screen.dart
-vue/messages_screen.dart
-vue/register_screen.dart
-vue/splash_screen.dart

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'composant/appbar.dart';
+import 'composant/bottomnavbar.dart';
 
 class Accueil extends StatefulWidget {
   const Accueil({super.key});
@@ -20,6 +21,7 @@ class _AccueilState extends State<Accueil> {
     return Scaffold(
       appBar: CustomAppBar(),
       body: _pages[_selectedIndex],
+      bottomNavigationBar: CustomBottomNavbar(),
     );
   }
 }
