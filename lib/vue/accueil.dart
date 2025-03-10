@@ -9,7 +9,7 @@ class Accueil extends StatefulWidget {
 }
 
 class _AccueilState extends State<Accueil> {
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
 
   final List<Widget> _pages = [
     Center(child: Text("Bienvenue sur la page d'accueil !", style: TextStyle(fontSize: 24))),
