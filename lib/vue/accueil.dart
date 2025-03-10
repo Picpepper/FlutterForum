@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'composant/appbar.dart';
 import 'composant/bottomnavbar.dart';
+import 'composant/drawer.dart';
 
 class Accueil extends StatefulWidget {
   const Accueil({super.key});
@@ -14,6 +15,7 @@ class _AccueilState extends State<Accueil> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
