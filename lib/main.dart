@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'vue/login_screen.dart';
 import 'vue/accueil.dart';
-import 'vue/splash_screen.dart';
+import 'vue/composant/splashscreen.dart';
 
 void main() {
   runApp(
