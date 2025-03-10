@@ -10,17 +10,24 @@ class Accueil extends StatefulWidget {
 }
 
 class _AccueilState extends State<Accueil> {
-  final int _selectedIndex = 0;
-
-  final List<Widget> _pages = [
-    Center(child: Text("Bienvenue sur la page d'accueil !", style: TextStyle(fontSize: 24))),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: _pages[_selectedIndex],
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Bienvenue sur la page d'accueil !",
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "...",
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
       bottomNavigationBar: CustomBottomNavbar(),
     );
   }
