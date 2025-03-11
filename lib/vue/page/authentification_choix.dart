@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forumfinal/vue/connection.dart';
-import 'package:forumfinal/vue/inscription.dart';
-
+import '../connection.dart'; // ✅ Import de l'écran de connexion
+import '../inscription.dart'; // ✅ Import de l'écran d'inscription
 
 class AuthentificationChoix extends StatelessWidget {
   const AuthentificationChoix({super.key});

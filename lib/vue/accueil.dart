@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:forumfinal/vue/composant/bottomnavbar.dart';
 import 'composant/appbar.dart';
-import 'composant/bottomnavbar.dart';
 import 'composant/drawer.dart';
 
 class Accueil extends StatefulWidget {

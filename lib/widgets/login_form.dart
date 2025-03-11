@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:forumfinal/vue/inscription.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
-import '../vue/register_screen.dart'; // ✅ Import de RegisterScreen
+
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
