@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/message.dart';
+import '../modele/message.dart';
 import '../utils/secure_storage.dart';
 
 class ApiService {
-  static const String baseUrl = "https://s3-4686.nuage-peda.fr/forum/api/messages";
+  static const String baseUrl = "https://s3-4684.nuage-peda.fr/forumFinal/api/messages";
   final SecureStorage secureStorage = SecureStorage();
-  
-  get id => null;
 
   /// récupérer tous les messages
   Future<List<Message>> fetchMessages() async {

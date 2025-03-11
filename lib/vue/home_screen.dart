@@ -6,6 +6,8 @@ import 'register_screen.dart';
 import 'messages_screen.dart'; // ✅ Import correct
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
@@ -14,7 +16,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Forum app"),
+        title: Text("Forum"),
         backgroundColor: Colors.green,
         actions: [
           if (!isAuthenticated) ...[

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
-import 'screens/login_screen.dart';
-import 'screens/home_screen.dart';
-import 'screens/splash_screen.dart';
+import 'vue/login_screen.dart';
+import 'vue/accueil.dart';
+import 'vue/composant/splashscreen.dart';
 
 void main() {
   runApp(
@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(), // ✅ L'appli démarre avec le SplashScreen
+      home: SplashScreen(), // L'application démarre avec un splashscreen
       routes: {
-        '/home': (context) => HomeScreen(), // Accès libre au forum
+        '/home': (context) => Accueil(), // Accès libre au forum
         '/login': (context) => LoginScreen(), // Connexion facultative
       },
     );

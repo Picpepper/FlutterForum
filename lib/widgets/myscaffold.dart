@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
-import '../screens/login_screen.dart';
+import '../vue/login_screen.dart';
 
 class MyScaffold extends StatelessWidget {
   final Widget body;
   final String name;
 
-  const MyScaffold({required this.body, required this.name});
+  const MyScaffold({super.key, required this.body, required this.name});
 
   @override
   Widget build(BuildContext context) {
