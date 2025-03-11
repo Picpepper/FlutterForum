@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../utils/secure_storage.dart';
 
 class AuthService {
-  static const String baseUrl = "https://s3-4684.nuage-peda.fr/forumFinal/api";
+  static const String baseUrl = "https://s3-4686.nuage-peda.fr/forum/api";
 
   final SecureStorage secureStorage = SecureStorage();
 

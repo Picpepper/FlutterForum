@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'https://s3-4684.nuage-peda.fr/forumFinal/api/authentication_token'; // Remplace par ton URL d'API
+  static const String baseUrl = 'https://s3-4686.nuage-peda.fr/forum/api/authentication_token'; // Remplace par ton URL d'API
 
   static Future<http.Response> login(String email, String password) async {
     final url = Uri.parse('$baseUrl/users/login');

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:forumfinal/vue/composant/bottomnavbar.dart';
 import '../services/api_service.dart';
 import '../modele/message.dart';
-import 'page/message_detail_screen.dart';
+import 'message_detail_screen.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -69,6 +70,7 @@ class _MessageScreenState extends State<MessageScreen> {
           );
         },
       ),
+        bottomNavigationBar: CustomBottomNavbar(),
     );
   }
 }
