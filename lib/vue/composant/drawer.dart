@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../connection.dart';
+import '../inscription.dart';
 
 class CustomDrawer extends StatelessWidget {
 
@@ -40,14 +42,20 @@ class CustomDrawer extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text('Inscription'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterScreen())
+              );
             },
           ),
           ListTile(
             leading: Icon(Icons.login),
             title: Text('Connexion'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen())
+              );
             },
           ),
           Divider(),

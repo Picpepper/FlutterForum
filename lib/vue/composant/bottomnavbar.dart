@@ -11,7 +11,7 @@ class CustomBottomNavbar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Accueil"),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: "Rechercher"),
+        BottomNavigationBarItem(icon: Icon(Icons.mail), label: "Message"),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
       ],
     );
