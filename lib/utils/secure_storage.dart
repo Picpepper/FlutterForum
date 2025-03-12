@@ -87,5 +87,11 @@ class SecureStorage {
   Future<void> deleteUserInfo() async {
     await _storage.delete(key: _keyUserNom, iOptions: _secureOptions, aOptions: _androidOptions);
     await _storage.delete(key: _keyUserPrenom, iOptions: _secureOptions, aOptions: _androidOptions);
+    await _storage.delete(key: _keyToken, iOptions: _secureOptions, aOptions: _androidOptions);
+    await _storage.delete(key: _keyPassword, iOptions: _secureOptions, aOptions: _androidOptions);
+    await _storage.delete(key: _keyUserId, iOptions: _secureOptions, aOptions: _androidOptions);
+    await _storage.delete(key: _keyEmail, iOptions: _secureOptions, aOptions: _androidOptions);
   }
+
+  
 }

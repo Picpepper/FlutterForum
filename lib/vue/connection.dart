@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forumfinal/vue/composant/bottomnavbar.dart';
 import '../widgets/myscaffold.dart';
 import '../widgets/login_form.dart';
 
@@ -24,7 +25,7 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      ), bottomNavigationBar: CustomBottomNavbar(),
     );
   }
 }

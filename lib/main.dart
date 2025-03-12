@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'vue/accueil.dart';
 import 'vue/composant/splashscreen.dart';
-
 void main() {
   runApp(
     MultiProvider(
@@ -17,7 +16,6 @@ void main() {
     ),
   );
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forumfinal/vue/composant/bottomnavbar.dart';
 import 'package:forumfinal/vue/connection.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
@@ -7,7 +8,7 @@ class MyScaffold extends StatelessWidget {
   final Widget body;
   final String name;
 
-  const MyScaffold({super.key, required this.body, required this.name});
+  const MyScaffold({super.key, required this.body, required this.name, required CustomBottomNavbar bottomNavigationBar});
 
   @override
   Widget build(BuildContext context) {

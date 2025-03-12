@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forumfinal/vue/accueil.dart';
 import 'package:forumfinal/vue/messages.dart';
+import 'package:forumfinal/vue/profil.dart';
 
 class CustomBottomNavbar extends StatefulWidget {
   const CustomBottomNavbar({super.key});
@@ -15,7 +16,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   final List<Widget> _screens = [
     Accueil(),
     MessageScreen(),
-    
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

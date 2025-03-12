@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import '../../utils/secure_storage.dart' show SecureStorage;
-import '../connection.dart'; // Assurez-vous que cela importe votre LoginScreen
-import '../inscription.dart'; // Assurez-vous que cela importe votre RegisterScreen
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../../utils/secure_storage.dart'; // Import your SecureStorage class
+import '../connection.dart'; // Import your LoginScreen
+import '../inscription.dart'; // Import your RegisterScreen
 
 class CustomDrawer extends StatelessWidget {
-  final SecureStorage secureStorage = SecureStorage();
+  final SecureStorage secureStorage = SecureStorage(); // Correct instantiation
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, String?>>(
-      future: secureStorage.readUserInfo(), // Asynchronously read user info
+      future: secureStorage.readUserInfo(), // Fetch user info from SecureStorage
       builder: (BuildContext context, AsyncSnapshot<Map<String, String?>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Drawer(
-            child: Center(child: CircularProgressIndicator()), // Affiche un indicateur de chargement
+            child: Center(child: CircularProgressIndicator()), // Show a loading indicator
           );
         }
 
@@ -23,9 +24,11 @@ class CustomDrawer extends StatelessWidget {
           );
         }
 
-        // Récupérer le nom et le prénom de l'utilisateur
-        String? userNom = snapshot.data?['userNom'];
-        String? userPrenom = snapshot.data?['userPrenom'];
+        // Retrieve user info
+        final userInfo = snapshot.data ?? {};
+        final String? userNom = userInfo['nom'];
+        final String? userPrenom = userInfo['prenom'];
+        final String? userEmail = userInfo['email']; // Fetch email from user info
 
         return Drawer(
           child: ListView(
@@ -48,12 +51,12 @@ class CustomDrawer extends StatelessWidget {
                       children: [
                         Text(
                           userNom != null && userPrenom != null
-                              ? "Utilisateur: $userNom $userPrenom"
-                              : "Utilisateur",
+                              ? "$userNom $userPrenom"
+                              : "Invité", // Display full name if available, otherwise "Invité"
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                         Text(
-                          "email@example.com", // Remplacez ceci par l'email réel si disponible
+                          userEmail ?? "email@example.com", // Display email if available, otherwise a placeholder
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                       ],
@@ -61,8 +64,8 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
               ),
-              // Affichage conditionnel des ListTiles en fonction de la présence des informations utilisateur
-              if (userNom == null || userPrenom == null) ...[
+              // Conditional display of ListTiles based on user info
+              if (userEmail == null) ...[
                 ListTile(
                   leading: Icon(Icons.person),
                   title: Text('Inscription'),
@@ -87,8 +90,9 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.logout, color: Colors.red),
                   title: Text('Déconnexion', style: TextStyle(color: Colors.red)),
-                  onTap: () {
-                    // Logique de déconnexion
+                  onTap: () async {
+                    await secureStorage.deleteUserInfo(); // Clear all user data from SecureStorage
+                    Navigator.pushReplacementNamed(context, '/'); // Redirect to home or login screen
                   },
                 ),
               ],
