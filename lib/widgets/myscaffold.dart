@@ -1,58 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
-import '../vue/login_screen.dart';
+import '../vue/connexion.dart';
 
 class MyScaffold extends StatelessWidget {
   final Widget body;
   final String name;
-
-  const MyScaffold({super.key, required this.body, required this.name});
-
+  const MyScaffold({
+    Key? key,
+    required this.body,
+    required this.name,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    final bool isLoggedIn = authProvider.isAuthenticated;
-    final user = authProvider.user;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(name, style: TextStyle(color: Colors.white)),
-        actions: [
-          if (isLoggedIn) ...[
-            Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: Row(
-                children: [
-                  Text(
-                    "${user?['prenom']} ${user?['nom']}",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(width: 10),
-                  IconButton(
-                    icon: Icon(Icons.logout, color: Colors.white),
-                    onPressed: () {
-                      authProvider.logout();
-                      Navigator.pushNamed(context, '/home'); // ✅ Reste sur Home après déconnexion
-                    },
-                  ),
-                ],
-              ),
+        title: Text(this.name, style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.purple,
+        elevation: 10.0,
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.app_registration, color: Colors.white),
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/inscription',
+              );
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              authProvider.isAuthenticated ? Icons.logout : Icons.login,
+              color: Colors.white,
             ),
-          ] else ...[
-            IconButton(
-              icon: Icon(Icons.login, color: Colors.white),
-              onPressed: () {
-                Navigator.push(
+            onPressed: () {
+              if (authProvider.isAuthenticated) {
+                authProvider.logout();
+                Navigator.pushNamedAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()), // ✅ Permet d'accéder à LoginScreen
+                  '/connexion',
+                  (Route<dynamic> route) => false,
                 );
-              },
-            ),
-          ],
+              } else {
+                Navigator.pushNamed(
+                  context,
+                  '/connexion',
+                );
+              }
+            },
+          ),
         ],
       ),
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       body: body,
+      floatingActionButton: FloatingActionButton(
+        onPressed: null,
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import '../utils/secure_storage.dart';
 
 class AuthProvider with ChangeNotifier {
-  static const String _baseUrl = "https://s3-4684.nuage-peda.fr/forumFinal/api";
+  static const String _baseUrl =
+      "https://s3-4664.nuage-peda.fr/e52025/forum_api/public/api";
   String? _token;
   Map<String, dynamic>? _user;
   final SecureStorage _secureStorage = SecureStorage();
@@ -56,15 +57,15 @@ class AuthProvider with ChangeNotifier {
   }
 
   /// 🔹 Inscription utilisateur
-  Future<bool> register(String firstName, String lastName, String email, String password) async {
-    final url = Uri.parse("$_baseUrl/users");
+  Future<bool> register(
+      String pseudonyme, String email, String password) async {
+    final url = Uri.parse("$_baseUrl/utilisateurs");
     final headers = {
       'Accept': 'application/ld+json',
       'Content-Type': 'application/ld+json',
     };
     final body = jsonEncode({
-      'prenom': firstName,
-      'nom': lastName,
+      'pseudonyme': pseudonyme,
       'email': email,
       'password': password,
       'dateInscription': DateTime.now().toIso8601String(),
@@ -104,7 +105,7 @@ class AuthProvider with ChangeNotifier {
         print("👤 Profil utilisateur récupéré : $_user");
 
         // Sauvegarde des informations utilisateur localement
-        await _secureStorage.saveUserInfo(_user!['nom'], _user!['prenom']);
+        await _secureStorage.saveUserInfo(_user!['pseudonyme']);
       } else {
         print("⚠️ Impossible de récupérer le profil : ${response.body}");
       }
