@@ -20,8 +20,8 @@ class Message {
       titre: json['titre'] ?? "Sans titre",
       datePoste: json['datePoste'] != null ? DateTime.parse(json['datePoste']) : DateTime.now(),
       contenu: json['contenu'] ?? "Aucun contenu",
-      author: json['user'] != null && json['user']['nom'] != null
-          ? "${json['user']['prenom'] ?? ''} ${json['user']['nom']}"
+      author: json['utilisateur'] != null && json['utilisateur']['pseudonyme'] != null
+          ? "${json['utilisateur']['pseudonyme'] ?? ''} ${json['utilisateur']['pseudonyme']}"
           : "Utilisateur inconnu",
     );
   }
