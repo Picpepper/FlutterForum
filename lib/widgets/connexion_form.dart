@@ -6,6 +6,8 @@ import '../providers/auth_provider.dart';
 import '../utils/secure_storage.dart';
 
 class ConnexionForm extends StatefulWidget {
+  const ConnexionForm({super.key});
+
   @override
   _ConnexionFormState createState() => _ConnexionFormState();
 }

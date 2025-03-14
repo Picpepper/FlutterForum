@@ -7,16 +7,16 @@ class MyScaffold extends StatelessWidget {
   final Widget body;
   final String name;
   const MyScaffold({
-    Key? key,
+    super.key,
     required this.body,
     required this.name,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.name, style: TextStyle(color: Colors.white)),
+        title: Text(name, style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.purple,
         elevation: 10.0,
         centerTitle: true,

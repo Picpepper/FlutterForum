@@ -3,6 +3,8 @@ import '../widgets/connexion_form.dart';
 import '../widgets/myscaffold.dart';
 
 class ConnexionVue extends StatelessWidget {
+  const ConnexionVue({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MyScaffold(

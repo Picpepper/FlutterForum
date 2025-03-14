@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:forumfinal/api/utilisateur.dart';
 
 class InscriptionForm extends StatefulWidget {
+  const InscriptionForm({super.key});
+
   @override
   _InscriptionFormState createState() => _InscriptionFormState();
 }
