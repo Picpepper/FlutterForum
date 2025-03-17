@@ -4,7 +4,8 @@ import '../modele/message.dart';
 import '../utils/secure_storage.dart';
 
 class ApiService {
-  static const String baseUrl = "https://s3-4686.nuage-peda.fr/forum/api/messages";
+  static const String baseUrl =
+      "https://s3-4686.nuage-peda.fr/forum/api/messages";
   final SecureStorage secureStorage = SecureStorage();
 
   /// récupérer tous les messages
@@ -23,9 +24,11 @@ class ApiService {
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
 
-        if (jsonResponse is Map<String, dynamic> && jsonResponse.containsKey("member")) {
-          List<dynamic> messagesJson = jsonResponse["member"];
-          List<Message> messages = messagesJson.map((item) => Message.fromJson(item)).toList();
+        if (jsonResponse is Map<String, dynamic> &&
+            jsonResponse.containsKey("hydra:member")) {
+          List<dynamic> messagesJson = jsonResponse["hydra:member"];
+          List<Message> messages =
+              messagesJson.map((item) => Message.fromJson(item)).toList();
 
           print("✅ ${messages.length} messages récupérés !");
           return messages;
@@ -43,28 +46,35 @@ class ApiService {
 
   /// 🔹 Récupérer les réponses d'un message parent via `/api/messages/parent/{parentId}`
   Future<List<Message>> fetchReplies(int parentId) async {
-    try {
-      final headers = {
-        'Accept': 'application/ld+json',
-        'Content-Type': 'application/json',
-      };
+  try {
+    final headers = {
+      'Accept': 'application/ld+json',
+      'Content-Type': 'application/json',
+    };
 
-      final url = "$baseUrl/parent/$parentId"; // ✅ Utilisation correcte de la route
-      final response = await http.get(Uri.parse(url), headers: headers);
+    final url = "$baseUrl/parent/$parentId"; // Utilisation correcte de la route
+    final response = await http.get(Uri.parse(url), headers: headers);
 
-      print("🔹 Réponses récupérées pour message ID $parentId : ${response.body}");
+    print("🔹 Réponses récupérées pour message ID $parentId : ${response.body}");
 
-      if (response.statusCode == 200) {
-        final List<dynamic> jsonResponse = jsonDecode(response.body);
-        return jsonResponse.map((item) => Message.fromJson(item)).toList();
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+
+      // Si la réponse est un objet avec une clé "hydra:member"
+      if (jsonResponse is Map<String, dynamic> && jsonResponse.containsKey("hydra:member")) {
+        List<dynamic> repliesJson = jsonResponse["hydra:member"];
+        return repliesJson.map((item) => Message.fromJson(item)).toList();
       } else {
-        throw Exception("⚠️ Erreur API fetchReplies (${response.statusCode})");
+        throw Exception("❌ Format inattendu dans la réponse : ${response.body}");
       }
-    } catch (e) {
-      print("❌ Exception fetchReplies: $e");
-      throw Exception("Erreur réseau : ${e.toString()}");
+    } else {
+      throw Exception("⚠️ Erreur API fetchReplies (${response.statusCode})");
     }
+  } catch (e) {
+    print("❌ Exception fetchReplies: $e");
+    throw Exception("Erreur réseau : ${e.toString()}");
   }
+}
 
   Future<void> sendMessage(String message, {int? parentId}) async {
     try {
@@ -81,8 +91,9 @@ class ApiService {
       };
 
       // 🔹 URIs relatives demandées par l'API
-      String userUri = "/forumFinal/api/users/$userId";
-      String? parentUri = parentId != null ? "/forumFinal/api/messages/$parentId" : null;
+      String userUri = "/forum/api/utilisateurs/$userId";
+      String? parentUri =
+          parentId != null ? "/forum_api/api/messages/$parentId" : null;
 
       // ✅ JSON conforme au cURL
       final body = jsonEncode({
@@ -95,12 +106,15 @@ class ApiService {
 
       print("📤 Envoi de la requête : $body");
 
-      final response = await http.post(Uri.parse(baseUrl), headers: headers, body: body);
+      final response =
+          await http.post(Uri.parse(baseUrl), headers: headers, body: body);
 
-      print("🔹 Réponse API sendMessage : ${response.statusCode} - ${response.body}");
+      print(
+          "🔹 Réponse API sendMessage : ${response.statusCode} - ${response.body}");
 
       if (response.statusCode != 201) {
-        throw Exception("❌ Erreur lors de l'envoi du message (${response.statusCode}) : ${response.body}");
+        throw Exception(
+            "❌ Erreur lors de l'envoi du message (${response.statusCode}) : ${response.body}");
       }
 
       print("✅ Message envoyé avec succès !");
