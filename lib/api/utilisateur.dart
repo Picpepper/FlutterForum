@@ -30,7 +30,7 @@ Future<int> inscrireUtilisateur(String pseudonyme, String email,
 Future<http.Response> connecterUtilisateur(
     String email, String password) async {
   final url = Uri.parse(
-      'https://s3-4664.nuage-peda.fr/e52025/forum_api/public/utilisateurs');
+      'https://s3-4664.nuage-peda.fr/e52025/forum_api/public/api/authentication_token');
   final headers = {
     'accept': 'application/json',
     'Content-Type': 'application/json',

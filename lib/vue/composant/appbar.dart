@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Image.asset('assets/logo-forum.png', height: 40),
           const SizedBox(width: 5),
           Text(
-            "Forum",
+            "ForumTech",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
