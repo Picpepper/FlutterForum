@@ -18,11 +18,12 @@ class Message {
     return Message(
       id: json['id'] ?? 0,
       titre: json['titre'] ?? "Sans titre",
-      datePoste: json['datePoste'] != null ? DateTime.parse(json['datePoste']) : DateTime.now(),
+      datePoste: json['datePoste'] != null
+          ? DateTime.parse(json['datePoste'])
+          : DateTime.now(),
       contenu: json['contenu'] ?? "Aucun contenu",
-      author: json['utilisateur'] != null && json['utilisateur']['pseudonyme'] != null
-          ? "${json['utilisateur']['pseudonyme'] ?? ''} ${json['utilisateur']['pseudonyme']}"
-          : "Utilisateur inconnu",
+      author: json['utilisateur'] ??
+          "Utilisateur inconnu", // Utilisation directe de l'URL ou du nom
     );
   }
 }

@@ -25,8 +25,8 @@ class ApiService {
         final jsonResponse = jsonDecode(response.body);
 
         if (jsonResponse is Map<String, dynamic> &&
-            jsonResponse.containsKey("member")) {
-          List<dynamic> messagesJson = jsonResponse["member"];
+            jsonResponse.containsKey("hydra:member")) {
+          List<dynamic> messagesJson = jsonResponse["hydra:member"];
           List<Message> messages =
               messagesJson.map((item) => Message.fromJson(item)).toList();
 
