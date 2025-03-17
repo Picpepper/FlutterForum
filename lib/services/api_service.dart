@@ -4,7 +4,8 @@ import '../modele/message.dart';
 import '../utils/secure_storage.dart';
 
 class ApiService {
-  static const String baseUrl = "https://s3-4684.nuage-peda.fr/forumFinal/api/messages";
+  static const String baseUrl =
+      "https://s3-4664.nuage-peda.fr/e52025/forum_api/public/api/messages";
   final SecureStorage secureStorage = SecureStorage();
 
   /// récupérer tous les messages
@@ -23,9 +24,11 @@ class ApiService {
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
 
-        if (jsonResponse is Map<String, dynamic> && jsonResponse.containsKey("member")) {
+        if (jsonResponse is Map<String, dynamic> &&
+            jsonResponse.containsKey("member")) {
           List<dynamic> messagesJson = jsonResponse["member"];
-          List<Message> messages = messagesJson.map((item) => Message.fromJson(item)).toList();
+          List<Message> messages =
+              messagesJson.map((item) => Message.fromJson(item)).toList();
 
           print("✅ ${messages.length} messages récupérés !");
           return messages;
@@ -49,10 +52,12 @@ class ApiService {
         'Content-Type': 'application/json',
       };
 
-      final url = "$baseUrl/parent/$parentId"; // ✅ Utilisation correcte de la route
+      final url =
+          "$baseUrl/parent/$parentId"; // ✅ Utilisation correcte de la route
       final response = await http.get(Uri.parse(url), headers: headers);
 
-      print("🔹 Réponses récupérées pour message ID $parentId : ${response.body}");
+      print(
+          "🔹 Réponses récupérées pour message ID $parentId : ${response.body}");
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonResponse = jsonDecode(response.body);
@@ -81,8 +86,9 @@ class ApiService {
       };
 
       // 🔹 URIs relatives demandées par l'API
-      String userUri = "/forumFinal/api/users/$userId";
-      String? parentUri = parentId != null ? "/forumFinal/api/messages/$parentId" : null;
+      String userUri = "/forum_api/public/api/utilisateurs/$userId";
+      String? parentUri =
+          parentId != null ? "/forum_api/public/api/messages/$parentId" : null;
 
       // ✅ JSON conforme au cURL
       final body = jsonEncode({
@@ -95,12 +101,15 @@ class ApiService {
 
       print("📤 Envoi de la requête : $body");
 
-      final response = await http.post(Uri.parse(baseUrl), headers: headers, body: body);
+      final response =
+          await http.post(Uri.parse(baseUrl), headers: headers, body: body);
 
-      print("🔹 Réponse API sendMessage : ${response.statusCode} - ${response.body}");
+      print(
+          "🔹 Réponse API sendMessage : ${response.statusCode} - ${response.body}");
 
       if (response.statusCode != 201) {
-        throw Exception("❌ Erreur lors de l'envoi du message (${response.statusCode}) : ${response.body}");
+        throw Exception(
+            "❌ Erreur lors de l'envoi du message (${response.statusCode}) : ${response.body}");
       }
 
       print("✅ Message envoyé avec succès !");
