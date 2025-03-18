@@ -44,15 +44,13 @@ class ApiService {
     }
   }
 
-  /// 🔹 Récupérer les réponses d'un message parent via `/api/messages/parent/{parentId}`
   Future<List<Message>> fetchReplies(int parentId) async {
   try {
     final headers = {
       'Accept': 'application/ld+json',
       'Content-Type': 'application/json',
     };
-
-    final url = "$baseUrl/parent/$parentId"; // Utilisation correcte de la route
+    final url = "$baseUrl/$parentId"; // Endpoint pour récupérer le message parent et ses réponses
     final response = await http.get(Uri.parse(url), headers: headers);
 
     print("🔹 Réponses récupérées pour message ID $parentId : ${response.body}");
@@ -60,10 +58,11 @@ class ApiService {
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
 
-      // Si la réponse est un objet avec une clé "hydra:member"
-      if (jsonResponse is Map<String, dynamic> && jsonResponse.containsKey("hydra:member")) {
-        List<dynamic> repliesJson = jsonResponse["hydra:member"];
-        return repliesJson.map((item) => Message.fromJson(item)).toList();
+      // Vérifie si la réponse est un objet JSON et contient le champ "messages"
+      if (jsonResponse is Map<String, dynamic> && jsonResponse.containsKey("messages")) {
+        List<dynamic> repliesJson = jsonResponse["messages"];
+        List<Message> replies = repliesJson.map((item) => Message.fromJson(item)).toList();
+        return replies;
       } else {
         throw Exception("❌ Format inattendu dans la réponse : ${response.body}");
       }
@@ -77,50 +76,52 @@ class ApiService {
 }
 
   Future<void> sendMessage(String message, {int? parentId}) async {
-    try {
-      String? token = await secureStorage.readToken();
-      if (token == null) throw Exception("Utilisateur non authentifié.");
+  try {
+    String? token = await secureStorage.readToken();
+    if (token == null) throw Exception("Utilisateur non authentifié.");
 
-      String? userId = await secureStorage.readUserId();
-      if (userId == null) throw Exception("Utilisateur non connecté !");
+    String? userId = await secureStorage.readUserId();
+    if (userId == null) throw Exception("Utilisateur non connecté !");
 
-      final headers = {
-        'Accept': 'application/ld+json', // ✅ Correction du Content-Type
-        'Content-Type': 'application/ld+json', // ✅ Correction du Content-Type
-        'Authorization': 'Bearer $token',
-      };
+    if (message.isEmpty) throw Exception("Le message ne peut pas être vide.");
 
-      // 🔹 URIs relatives demandées par l'API
-      String userUri = "/forum/api/utilisateurs/$userId";
-      String? parentUri =
-          parentId != null ? "/forum_api/api/messages/$parentId" : null;
+    final headers = {
+      'Accept': 'application/ld+json',
+      'Content-Type': 'application/ld+json',
+      'Authorization': 'Bearer $token',
+    };
 
-      // ✅ JSON conforme au cURL
-      final body = jsonEncode({
-        "titre": "Réponse",
-        "datePoste": DateTime.now().toIso8601String(), // ✅ Ajout de la date
-        "contenu": message,
-        "user": userUri, // ✅ URI relative
-        if (parentUri != null) "parent": parentUri, // ✅ URI relative
-      });
+    String userUri = "/forum/api/utilisateurs/$userId";
+    String? parentUri = parentId != null ? "/forum/api/messages/$parentId" : null;
 
-      print("📤 Envoi de la requête : $body");
+    final body = jsonEncode({
+      "titre": "Réponse",
+      "datePoste": DateTime.now().toIso8601String(),
+      "contenu": message,
+      "user": userUri,
+      if (parentUri != null) "parent": parentUri,
+    });
 
-      final response =
-          await http.post(Uri.parse(baseUrl), headers: headers, body: body);
+    print("📤 Envoi de la requête :");
+    print("URL : $baseUrl");
+    print("Headers : $headers");
+    print("Body : $body");
 
-      print(
-          "🔹 Réponse API sendMessage : ${response.statusCode} - ${response.body}");
+    final response = await http.post(Uri.parse(baseUrl), headers: headers, body: body);
 
-      if (response.statusCode != 201) {
-        throw Exception(
-            "❌ Erreur lors de l'envoi du message (${response.statusCode}) : ${response.body}");
-      }
+    print("🔹 Réponse API sendMessage :");
+    print("Statut : ${response.statusCode}");
+    print("Body : ${response.body}");
 
-      print("✅ Message envoyé avec succès !");
-    } catch (e) {
-      print("❌ Exception sendMessage: $e");
-      throw Exception("Erreur réseau : ${e.toString()}");
+    if (response.statusCode != 201) {
+      throw Exception("❌ Erreur lors de l'envoi du message (${response.statusCode}) : ${response.body}");
     }
+
+    print("✅ Message envoyé avec succès !");
+  } catch (e, stackTrace) {
+    print("❌ Exception sendMessage: $e");
+    print("Stack Trace: $stackTrace");
+    throw Exception("Erreur réseau : ${e.toString()}");
   }
+}
 }

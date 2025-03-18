@@ -3,7 +3,7 @@ class Message {
   final String titre;
   final DateTime datePoste;
   final String contenu;
-  final String author; // Ici, nous stockons l'URL de l'utilisateur
+  final String author;
 
   Message({
     required this.id,
@@ -15,13 +15,15 @@ class Message {
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
-      id: json['id'] ?? 0,
-      titre: json['titre'] ?? "Sans titre",
-      datePoste: json['datePoste'] != null 
-          ? DateTime.parse(json['datePoste']) 
+      id: json['id'] is int ? json['id'] : 0,
+      titre: json['titre'] is String ? json['titre'] : "Sans titre",
+      datePoste: json['datePoste'] is String
+          ? DateTime.parse(json['datePoste'])
           : DateTime.now(),
-      contenu: json['contenu'] ?? "Aucun contenu",
-      author: json['user'] ?? "Utilisateur inconnu", // Stocke l'URL de l'utilisateur
+      contenu: json['contenu'] is String ? json['contenu'] : "Aucun contenu",
+      author: json['user'] != null && json['user'] is Map<String, dynamic>
+          ? "${json['user']['prenom']} ${json['user']['nom']}"
+          : "Utilisateur inconnu",
     );
   }
 }
